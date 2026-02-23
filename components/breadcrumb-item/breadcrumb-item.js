@@ -45,6 +45,8 @@ class LunaBreadcrumbItem extends HTMLElement {
         :host {
           display: inline-flex;
           align-items: center;
+          overflow: visible;
+          position: relative;
         }
 
         .breadcrumb-item {
@@ -54,6 +56,7 @@ class LunaBreadcrumbItem extends HTMLElement {
           color: var(--luna-breadcrumb-color, #888);
           font-size: var(--luna-breadcrumb-font-size, 0.875rem);
           transition: color 0.2s;
+          overflow: visible;
         }
 
         .label {
@@ -63,6 +66,8 @@ class LunaBreadcrumbItem extends HTMLElement {
           text-decoration: none;
           color: inherit;
           cursor: default;
+          overflow: visible;
+          position: relative;
         }
 
         :host([href]) .label {
@@ -94,7 +99,6 @@ class LunaBreadcrumbItem extends HTMLElement {
         ::slotted([slot="prefix"]), ::slotted([slot="suffix"]) {
           display: inline-flex;
           align-items: center;
-          opacity: 0.7;
         }
       </style>
 
