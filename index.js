@@ -63,3 +63,4 @@ import './components/format-date/format-date.js';
 import './components/audio-player/audio-player.js';
 import './components/pie-chart/pie-chart.js';
 import './components/radar-chart/radar-chart.js';
+import './components/line-chart/line-chart.js';
