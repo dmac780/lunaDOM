@@ -3,11 +3,6 @@
 /**
  * @customElement luna-line-chart
  *
- * A full-featured, dependency-free line chart. Data is provided as a JSON
- * array via the `data` attribute or `data` JS property. Supports single-series
- * and multi-series modes, optional area fill, smooth curves, reference lines,
- * and fully responsive re-drawing via ResizeObserver.
- *
  * Single-series data shape:
  *   [{ label: string, value: number }, …]
  *
@@ -79,8 +74,6 @@ class LunaLineChart extends HTMLElement {
     this._initialized = false;
   }
 
-  // ─── lifecycle ──────────────────────────────────────────────────────────────
-
   connectedCallback() {
     this._initialized = true;
     this._render();
@@ -100,8 +93,6 @@ class LunaLineChart extends HTMLElement {
     }
   }
 
-  // ─── data accessors ─────────────────────────────────────────────────────────
-
   get data() {
     try {
       return JSON.parse(this.getAttribute('data') || '[]');
@@ -113,8 +104,6 @@ class LunaLineChart extends HTMLElement {
   set data(v) {
     this.setAttribute('data', typeof v === 'string' ? v : JSON.stringify(v));
   }
-
-  // ─── helpers ────────────────────────────────────────────────────────────────
 
   _cssVar(name, fallback) {
     return getComputedStyle(this).getPropertyValue(name).trim() || fallback;
@@ -177,8 +166,6 @@ class LunaLineChart extends HTMLElement {
     return 10 * mag;
   }
 
-  // ─── path builders ──────────────────────────────────────────────────────────
-
   _buildPath(pts, smooth) {
     if (pts.length === 0) {
       return '';
@@ -206,8 +193,6 @@ class LunaLineChart extends HTMLElement {
     const first    = pts[0];
     return `${linePart} L${last[0]},${baseY} L${first[0]},${baseY} Z`;
   }
-
-  // ─── render (DOM scaffold) ───────────────────────────────────────────────────
 
   _render() {
     this.shadowRoot.innerHTML = `
@@ -378,8 +363,6 @@ class LunaLineChart extends HTMLElement {
 
     this._draw();
   }
-
-  // ─── draw (SVG) ─────────────────────────────────────────────────────────────
 
   _draw() {
     const svg      = this.shadowRoot.getElementById('chart');
@@ -587,8 +570,6 @@ class LunaLineChart extends HTMLElement {
     }
   }
 
-  // ─── events ─────────────────────────────────────────────────────────────────
-
   _bindEvents(svg, items, series, isMulti, precision, palette) {
     const tooltip  = this.shadowRoot.getElementById('tooltip');
     const ttDot    = this.shadowRoot.getElementById('tt-dot');
@@ -670,8 +651,6 @@ class LunaLineChart extends HTMLElement {
     });
   }
 
-  // ─── animation ──────────────────────────────────────────────────────────────
-
   _animate(svg, series, isMulti) {
     const count = isMulti ? series.length : 1;
 
@@ -696,8 +675,6 @@ class LunaLineChart extends HTMLElement {
       });
     }
   }
-
-  // ─── uid for gradient IDs ────────────────────────────────────────────────────
 
   get _uid() {
     if (!this.__uid) {
