@@ -236,7 +236,7 @@ class LunaButton extends HTMLElement {
         }
 
         .caret {
-          display: inline-block;
+          display: none;
           border-left: 4px solid transparent;
           border-right: 4px solid transparent;
           border-top: 4px solid currentColor;
@@ -244,7 +244,12 @@ class LunaButton extends HTMLElement {
           flex-shrink: 0;
         }
 
+        :host([caret]) .caret {
+          display: inline-block;
+        }
+
         .spinner {
+          display: none;
           width: 1rem;
           height: 1rem;
           border: 2px solid rgba(255, 255, 255, 0.3);
@@ -252,6 +257,10 @@ class LunaButton extends HTMLElement {
           border-radius: 50%;
           animation: spin 0.8s linear infinite;
           flex-shrink: 0;
+        }
+
+        :host([loading]) .spinner {
+          display: block;
         }
 
         @keyframes spin {
