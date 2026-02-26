@@ -360,6 +360,12 @@ class LunaCopyButton extends HTMLElement {
           transition: opacity 0.25s ease, transform 0.25s ease;
         }
 
+        .prefix-wrap.hidden,
+        .label-wrap.hidden,
+        .suffix-wrap.hidden {
+          display: none;
+        }
+
         button.success .icon-wrap,
         button.success .prefix-wrap,
         button.success .label-wrap,
@@ -403,6 +409,25 @@ class LunaCopyButton extends HTMLElement {
     this._loader = this.shadowRoot.getElementById('loader');
 
     this._btn.addEventListener('click', this._onClickBound);
+
+    const updateSlotVisibility = () => {
+      const prefixSlot  = this.shadowRoot.querySelector('slot[name="prefix"]');
+      const defaultSlot = this.shadowRoot.querySelector('slot:not([name])');
+      const suffixSlot  = this.shadowRoot.querySelector('slot[name="suffix"]');
+
+      this.shadowRoot.querySelector('.prefix-wrap').classList.toggle(
+        'hidden', !prefixSlot || prefixSlot.assignedNodes().length === 0
+      );
+      this.shadowRoot.querySelector('.label-wrap').classList.toggle(
+        'hidden', !defaultSlot || defaultSlot.assignedNodes({ flatten: true }).filter(n => n.textContent.trim()).length === 0
+      );
+      this.shadowRoot.querySelector('.suffix-wrap').classList.toggle(
+        'hidden', !suffixSlot || suffixSlot.assignedNodes().length === 0
+      );
+    };
+
+    this.shadowRoot.querySelectorAll('slot').forEach(s => s.addEventListener('slotchange', updateSlotVisibility));
+    updateSlotVisibility();
   }
 
   _updateUI() {
